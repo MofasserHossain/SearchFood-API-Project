@@ -37,12 +37,19 @@
             </div>
         </div>
     </nav>
-    <div class="form-item mt-3">
+    <div class="form-item mt-3 ">
         <div class="input-group">
             <input class="form-control" type="text" id="SearchInput">
             <a href="#" id="searchBtn" class="btn btn-warning">Search</a>
         </div>
     </div>
+    <div id="error" class="error">
+        <div class="d-flex justify-content-center">
+            <h2 id="error-heading">OPPS! Please enter a Food Name</h2>
+            <button onclick="closeError()" class="close">X</button>
+        </div>
+    </div>
+
     <div id="showMealItem" class="my-5 showMeal">
 
     </div>

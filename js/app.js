@@ -4,6 +4,11 @@ document.getElementById("searchBtn").addEventListener("click", () => {
     apiRequest(inputData);
 })
 
+function closeError() {
+    const body = document.getElementById("error")
+    body.style.display = "none";
+}
+
 // api data
 async function apiRequest(name) {
     const urlLink = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
@@ -16,20 +21,31 @@ async function apiRequest(name) {
 const getApiData = hunger => {
     const hungerMealList = hunger.meals;
     const foodDiv = document.getElementById("list");
+    const inputValue = document.getElementById('SearchInput').value;
+    const errorDiv = document.getElementById('error');
+    const errorText = document.getElementById('error-heading');
     let foodDetails = '';
-    hungerMealList.forEach(items => {
-        // console.log(items);
-        const displayMeals = `
-        <div onclick="itemDetails('${items.strMeal}')" class="grid">
-        <div>
-            <img src="${items.strMealThumb}">
-            <h3>${items.strMeal}</h3>
-        </div>
-        </div>
-        `;
-        foodDetails += displayMeals;
-    });
-    foodDiv.innerHTML = foodDetails;
+    if (inputValue === "") {
+        errorText.innerText = "Error! Enter a Food Name";
+        errorDiv.style.display = "block";
+    } else if (hunger.meals) {
+        hungerMealList.forEach(items => {
+            // console.log(items);
+            const displayMeals = `
+            <div onclick="itemDetails('${items.strMeal}')" class="grid">
+            <div>
+                <img src="${items.strMealThumb}">
+                <h3>${items.strMeal}</h3>
+            </div>
+            </div>
+            `;
+            foodDetails += displayMeals;
+        });
+        foodDiv.innerHTML = foodDetails;
+    } else {
+        errorText.innerText = "Error! Enter Right Food Name";
+        errorDiv.style.display = "block";
+    }
 }
 
 
